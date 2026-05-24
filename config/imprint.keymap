@@ -1,0 +1,202 @@
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/zmk/rgb.h>
+
+#define DEFAULT 0
+#define LOWER 1
+#define KEYPAD 2
+#define MOUSE 3
+#define DEVICE 4
+#define FACTORY_TEST 5
+
+#define _WM LALT
+#define SEL_WORD_DELAY 1
+
+/ {
+    chosen { zmk,matrix-transform = &imprint_function_row_full_bottom_row; };
+
+    macros {
+        _select_word_next: _select_word_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <SEL_WORD_DELAY>;
+            tap-ms = <SEL_WORD_DELAY>;
+            bindings =
+                <&macro_press &kp _WM>,
+                <&macro_tap &kp RIGHT &kp LEFT &kp LS(RIGHT)>,
+                <&macro_release &kp _WM>;
+        };
+
+        _extend_word_next: _extend_word_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <SEL_WORD_DELAY>;
+            tap-ms = <SEL_WORD_DELAY>;
+            bindings =
+                <&macro_press &kp _WM>,
+                <&macro_tap &kp LS(RIGHT)>,
+                <&macro_release &kp _WM>;
+        };
+
+        select_word_next: select_word_next {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&_select_word_next>, <&_extend_word_next>;
+            mods = <(MOD_LGUI | MOD_RGUI)>;
+        };
+
+        _select_word_prev: _select_word_prev {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <SEL_WORD_DELAY>;
+            tap-ms = <SEL_WORD_DELAY>;
+            bindings =
+                <&macro_press &kp _WM>,
+                <&macro_tap &kp LEFT &kp RIGHT &kp LS(LEFT)>,
+                <&macro_release &kp _WM>;
+        };
+
+        _extend_word_prev: _extend_word_prev {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <SEL_WORD_DELAY>;
+            tap-ms = <SEL_WORD_DELAY>;
+            bindings =
+                <&macro_press &kp _WM>,
+                <&macro_tap &kp LS(LEFT)>,
+                <&macro_release &kp _WM>;
+        };
+
+        select_word_prev: select_word_prev {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&_select_word_prev>, <&_extend_word_prev>;
+            mods = <(MOD_LGUI | MOD_RGUI)>;
+        };
+
+        bt_0: bt_profile_macro_0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 0>;
+        };
+
+        bt_1: bt_profile_macro_1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 1>;
+        };
+
+        bt_2: bt_profile_macro_2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 2>;
+        };
+
+        bt_3: bt_profile_macro_3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 3>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+&kp F14     &kp F15   &kp F16   &kp F17  &kp F18    &none            &none          &kp C_PREV  &kp C_NEXT  &kp C_PP  &kp C_VOL_DN  &kp C_VOL_UP
+&kp ESC     &kp N1    &kp N2    &kp N3   &kp N4     &kp N5           &kp N6         &kp N7      &kp N8      &kp N9    &kp N0        &kp MINUS
+&kp TAB     &kp Q     &kp W     &kp E    &kp R      &kp T            &kp Y          &kp U       &kp I       &kp O     &kp P         &kp EQUAL
+&mo LOWER   &kp A     &kp S     &kp D    &kp F      &kp G            &kp H          &kp J       &kp K       &kp L     &kp SEMI      &kp SQT
+&kp LSHIFT  &kp Z     &kp X     &kp C    &kp V      &kp B            &kp N          &kp M       &kp COMMA   &kp DOT   &kp FSLH      &kp BSLH
+&kp LALT    &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT                                   &kp LPAR     &kp RPAR    &kp LBKT    &kp RBKT  &kp GRAVE
+                                           &kp LCTRL   &kp LS(GRAVE)  &mo MOUSE    &kp RCTRL &kp LS(TAB)  &kp RSHIFT
+                                           &kp BSPC    &kp LGUI &kp F13            &kp RALT  &kp SPACE    &kp RET
+            >;
+        };
+
+        lower_layer {
+            bindings = <
+&to KEYPAD  &to DEVICE  &to MOUSE   &none     &none       &none            &none              &trans  &trans         &trans             &trans        &trans
+&none       &none       &none       &none     &none       &none            &none              &none   &none          &none              &none         &kp LS(MINUS)
+&none       &kp EXCL    &kp AT_SIGN &kp HASH  &kp DOLLAR  &kp PLUS         &none              &none   &none          &none              &none         &kp LS(EQUAL)
+&none       &kp PERCENT &kp CARET   &kp AMPS  &kp ASTRK   &kp UNDER        &select_word_prev  &none   &none          &select_word_next  &kp LS(SEMI)  &kp LS(SQT)
+&none       &none       &none       &none     &none       &none            &none              &none   &kp LS(COMMA)  &kp LS(DOT)        &kp LS(FSLH)  &kp LS(BSLH)
+&none       &none       &none       &none     &none                                          &trans             &trans  &kp LS(LBKT)   &kp LS(RBKT)       &none
+                                           &trans     &trans  &trans   &none              &kp LS(SPACE)  &kp LS(RET)
+                                           &none      &none   &none    &none              &trans         &none
+            >;
+        };
+
+        keypad_layer {
+            bindings = <
+&none        &none     &none     &none   &none      &none            &none   &trans    &trans    &trans  &trans     &trans
+&kp ESC      &none     &none     &none   &none      &none            &none   &none     &none     &none   &none      &none
+&kp TAB      &none     &kp N7    &kp N8  &kp N9     &none            &none   &kp N7    &kp N8    &kp N9  &none      &none
+&to DEFAULT  &none     &kp N4    &kp N5  &kp N6     &none            &none   &kp N4    &kp N5    &kp N6  &none      &none
+&none        &kp N0    &kp N1    &kp N2  &kp N3     &none            &kp N0  &kp N1    &kp N2    &kp N3  &none      &none
+&none        &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT                            &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &none
+                                           &trans  &trans  &trans  &trans  &none  &none
+                                           &none   &none   &none   &none   &trans &none
+            >;
+        };
+
+        mouse_layer {
+            bindings = <
+&none        &none           &none           &none            &none      &none            &none   &trans    &trans    &trans  &trans     &trans
+&kp ESC      &none           &none           &none            &none      &none            &none   &none     &none     &none   &none      &none
+&kp TAB      &msc SCRL_DOWN  &mmv MOVE_UP    &msc SCRL_UP     &mkp MCLK  &none            &none   &kp N7    &kp N8    &kp N9  &none      &none
+&to DEFAULT  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp LCLK  &mkp RCLK        &none   &kp N4    &kp N5    &kp N6  &none      &none
+&none        &none           &none           &none            &none      &none            &kp N0  &kp N1    &kp N2    &kp N3  &none      &none
+&none        &kp LEFT        &kp DOWN        &kp UP           &kp RIGHT                            &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &none
+                                           &trans     &trans  &trans  &none   &none   &none
+                                           &none      &none   &none   &none   &trans  &none
+            >;
+        };
+
+        device_layer {
+            bindings = <
+&bt BT_CLR   &none           &none           &none            &none            &none            &none  &none  &none  &none  &none  &bt BT_CLR_ALL
+&bootloader  &none           &none           &none            &none            &none            &none  &none  &none  &none  &none  &bootloader
+&none        &rgb_ug RGB_SPI &rgb_ug RGB_SAI &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG  &none  &none  &none  &none  &none  &none
+&to DEFAULT  &rgb_ug RGB_SPD &rgb_ug RGB_SAD &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF  &none  &none  &none  &none  &none  &none
+&sys_reset   &none           &none           &none            &none            &none            &none  &none  &none  &none  &none  &sys_reset
+&none        &none           &none           &none            &none                                    &none  &none  &none  &none  &to FACTORY_TEST
+                                           &bt_2  &bt_3  &none          &none  &none  &none
+                                           &bt_0  &bt_1  &out OUT_USB   &none  &none  &none
+            >;
+        };
+
+        factory_test_layer {
+            bindings = <
+&kp N0  &kp N6  &kp N2  &kp N8  &kp N4  &none           &none   &kp N4  &kp N8  &kp N2  &kp N6  &kp N0
+&kp N1  &kp N7  &kp N3  &kp N9  &kp N5  &kp N0          &kp N0  &kp N5  &kp N9  &kp N3  &kp N7  &kp N1
+&kp N2  &kp N8  &kp N4  &kp N0  &kp N6  &kp N1          &kp N1  &kp N6  &kp N0  &kp N4  &kp N8  &kp N2
+&kp N3  &kp N9  &kp N5  &kp N1  &kp N7  &kp N2          &kp N2  &kp N7  &kp N1  &kp N5  &kp N9  &kp N3
+&kp N4  &kp N0  &kp N6  &kp N2  &kp N8  &kp N3          &kp N3  &kp N8  &kp N2  &kp N6  &kp N0  &kp N4
+&kp N5  &kp N1  &kp N7  &kp N3  &kp N9                          &kp N9  &kp N3  &kp N7  &kp N1  &kp N5
+                                  &kp N7  &kp N8  &kp N9  &kp N9  &kp N8  &kp N7
+                                  &kp N4  &kp N5  &kp N6  &kp N6  &kp N5  &kp N4
+            >;
+        };
+    };
+};
+
+&trackball_peripheral_listener {
+    input-processors = <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>;
+
+    scroll_layer {
+        layers = <MOUSE>;
+        input-processors =
+            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
+            <&zip_xy_scaler 1 3>,
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>;
+    };
+};

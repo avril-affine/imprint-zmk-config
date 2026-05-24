@@ -1,0 +1,9 @@
+[submodule "zmk"]
+	path = zmk
+	url = git@github.com:zmkfirmware/zmk.git
+[submodule "zmk-keyboards"]
+	path = zmk-keyboards
+	url = git@github.com:Cyboard-DigitalTailor/zmk-keyboards.git
+[submodule "zmk-pmw3610-driver"]
+	path = zmk-pmw3610-driver
+	url = git@github.com:Cyboard-DigitalTailor/zmk-pmw3610-driver.git
