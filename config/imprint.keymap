@@ -116,8 +116,8 @@
 &mo LOWER   &kp A     &kp S     &kp D    &kp F      &kp G            &kp H          &kp J       &kp K       &kp L     &kp SEMI      &kp SQT
 &kp LSHIFT  &kp Z     &kp X     &kp C    &kp V      &kp B            &kp N          &kp M       &kp COMMA   &kp DOT   &kp FSLH      &kp BSLH
 &kp LALT    &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT                                  &kp LPAR    &kp RPAR    &kp LBKT  &kp RBKT      &kp GRAVE
-                                           &kp LCTRL   &kp F19    &kp LS(GRAVE)      &mkp LCLK &mkp RCLK    &kp RSHIFT
-                                           &kp BSPC    &kp LGUI   &kp F13            &kp RALT  &kp SPACE    &kp RET
+                                           &kp LCTRL   &mo LOWER  &kp LS(GRAVE)      &mo LOWER  &mkp LCLK    &kp RSHIFT
+                                           &kp BSPC    &kp LGUI   &kp F13            &kp RALT   &kp SPACE    &kp RET
             >;
         };
 
@@ -129,7 +129,7 @@
 &none &kp PERCENT &kp CARET   &kp AMPS  &kp ASTRK   &kp UNDER        &select_word_prev  &none   &none          &select_word_next  &kp LS(SEMI)  &kp LS(SQT)
 &none &none       &none       &none     &none       &none            &none              &none   &kp LS(COMMA)  &kp LS(DOT)        &kp LS(FSLH)  &kp LS(BSLH)
 &none &none       &none       &none     &none                                          &trans             &trans  &kp LS(LBKT)   &kp LS(RBKT)       &none
-                                           &none  &none  &none                   &trans  &trans         &none
+                                           &none  &none  &none                   &trans  &mkp RCLK      &none
                                            &none  &none  &none                   &none   &kp LS(SPACE)  &kp LS(RET)
             >;
         };
