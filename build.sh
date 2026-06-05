@@ -12,8 +12,8 @@ on_error() {
 trap "on_error" ERR
 set -x
 
-if ! command -v west; then
-    echo 'west is not install. try "pip install west"'
+if ! command -v uv; then
+    echo 'uv is not installed'
     exit 1
 fi
 
@@ -40,10 +40,10 @@ RIGHT_OUT="${OUT_DIR}/imprint_right.uf2"
 
 pushd $APP_DIR
 echo $PWD
-west build -p -b assimilator-bt -d build/left -- \
+uv run west build -p -b assimilator-bt -d build/left -- \
     -DZMK_CONFIG=$CONFIG_DIR -DSHIELD=imprint_left \
     -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
-west build -p -b assimilator-bt -d build/right -- \
+uv run west build -p -b assimilator-bt -d build/right -- \
     -DZMK_CONFIG=$CONFIG_DIR -DSHIELD=imprint_right \
     -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
 mkdir -p "$OUT_DIR"
