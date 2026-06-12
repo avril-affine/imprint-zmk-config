@@ -116,8 +116,8 @@
 &mo LOWER   &kp A     &kp S     &kp D    &kp F      &kp G            &kp H          &kp J       &kp K       &kp L     &kp SEMI      &kp SQT
 &kp LSHIFT  &kp Z     &kp X     &kp C    &kp V      &kp B            &kp N          &kp M       &kp COMMA   &kp DOT   &kp FSLH      &kp BSLH
 &kp LALT    &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT                                  &kp LPAR    &kp RPAR    &kp LBKT  &kp RBKT      &kp GRAVE
-                                           &kp LCTRL   &mo LOWER  &kp LS(GRAVE)      &mo LOWER  &mkp LCLK    &kp RSHIFT
-                                           &kp BSPC    &kp LGUI   &kp F13            &kp RALT   &kp SPACE    &kp RET
+                                           &kp LCTRL  &kp F13   &kp LS(GRAVE)      &mo LOWER  &mkp LCLK    &kp RSHIFT
+                                           &kp BSPC   &kp LGUI  &kp GRAVE          &kp RALT   &kp SPACE    &kp RET
             >;
         };
 
